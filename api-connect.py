@@ -2,8 +2,6 @@ from web3 import Web3
 from flask import Flask, jsonify, request, render_template
 import json
 import flask
-from config import PRIVATE_KEY
-from config import PRIVATE_KEY
 from dotenv.main import load_dotenv
 import os
 
@@ -14,7 +12,6 @@ load_dotenv()
 
 endPoint = os.environ['ENDPOINT']
 alchemy_http = "https://eth-goerli.g.alchemy.com/v2/" + endPoint
-# infura_sepolia = "https://sepolia.infura.io/v3/383258b208d84f47bd09ea2643b80768"
 web3 = Web3(Web3.HTTPProvider(alchemy_http))
 
 with open('ABI-2.json') as f:
@@ -140,14 +137,6 @@ def sendToken():
     # dictToReturn = {"tokenName":tokenName,"sender":senderAddress,"receiver": receiverAddress,"value":value,"gasPrice":gasPrice,"balance":tokenBalanceOf}
     return dictToReturn
 
-@app.route('/add', methods=['POST'])
-def addition():
-    received_data = request.get_json(force=True)
-    nb1 = received_data['nb1']
-    nb2 = received_data['nb2']
-    sum = nb1 + nb2
-    returnValue = {'nb1':nb1, 'nb2':nb2, 'sum':sum}
-    return returnValue
 
 if __name__ == "__main__":
     app.run(debug=True)
